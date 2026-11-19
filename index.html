@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bruma Café: café de especialidad al paso, Playa Grande, Mar del Plata</title>
+<meta name="description" content="Café de especialidad, dulce, salado y almuerzos para llevar en Playa Grande. Pedidos por WhatsApp, delivery gratis y suscripción de un café por día.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bruma Café">
+<meta property="og:description" content="Café al paso en Playa Grande. Pedí por WhatsApp.">
+<meta name="theme-color" content="#14110f">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #14110f; --tile: #1f1a17; --tile-2: #29221e; --ink: #f3ece2; --muted: #b3a89b; --line: rgb(243 236 226 / .12);
+  --accent: #ff7a3d; --accent-ink: #1a0f08;
+  --r: 22px; --gap: 14px; --wrap: 1280px; --gut: 28px;
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans: "Manrope", system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.wrap { width: min(100% - 2 * var(--gut), var(--wrap)); margin-inline: auto; }
+.skip { position: absolute; left: -9999px; } .skip:focus { left: 16px; top: 16px; z-index: 99; background: var(--ink); color: var(--bg); padding: 8px 12px; border-radius: 10px; }
+.serif { font-family: var(--serif); font-weight: 400; }
+.serif em { font-style: italic; color: var(--accent); }
+
+/* nav: floating pill */
+.nav { position: sticky; top: 14px; z-index: 40; margin-top: 14px; }
+.nav__bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 10px 10px 22px; background: rgb(31 26 23 / .82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid var(--line); border-radius: 999px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 400 30px/1 var(--serif); letter-spacing: -0.01em; }
+.logo svg { width: 26px; height: 26px; }
+.nav__links { display: flex; gap: 4px; }
+.nav__links a { padding: 10px 14px; border-radius: 999px; text-decoration: none; color: var(--muted); font-weight: 500; font-size: 15px; transition: color 160ms, background 160ms; }
+.nav__links a:hover { color: var(--ink); background: var(--tile-2); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font: 700 15px/1 var(--sans); text-decoration: none; transition: transform 180ms, box-shadow 180ms; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgb(255 122 61 / .28); }
+.btn:active { transform: translateY(0); }
+.btn svg { width: 18px; height: 18px; }
+.btn--ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.btn--ghost:hover { box-shadow: none; background: var(--tile-2); }
+
+/* bento */
+.bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gap); }
+.tile { position: relative; background: var(--tile); border-radius: var(--r); overflow: hidden; }
+.tile--pad { padding: 28px; }
+.tile--photo { min-height: 180px; }
+.tile--photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 700ms cubic-bezier(.2,.7,.2,1); }
+.tile--photo:hover img { transform: scale(1.04); }
+.tile--accent { background: var(--accent); color: var(--accent-ink); }
+.tile--cream { background: var(--ink); color: var(--bg); }
+.label { display: inline-flex; align-items: center; gap: 8px; font: 600 13px/1 var(--sans); letter-spacing: .02em; color: var(--muted); }
+.tile--accent .label, .tile--cream .label { color: inherit; opacity: .7; }
+.dot { width: 8px; height: 8px; border-radius: 999px; background: #6ee089; box-shadow: 0 0 0 4px rgb(110 224 137 / .15); }
+.dot.is-closed { background: #ff6b6b; box-shadow: 0 0 0 4px rgb(255 107 107 / .15); }
+.big { margin: 10px 0 0; font: 400 clamp(34px, 3.4vw, 48px)/1.02 var(--serif); letter-spacing: -0.01em; }
+
+/* hero */
+.hero { padding-top: 22px; }
+.hero .bento { grid-auto-rows: minmax(180px, auto); }
+.hero__main { grid-column: span 7; grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; padding: 40px; min-height: 520px; background: radial-gradient(120% 90% at 0% 100%, #3a2416 0%, var(--tile) 55%); }
+.hero h1 { margin: 0; font: 400 clamp(52px, 7vw, 104px)/.95 var(--serif); letter-spacing: -0.02em; }
+.hero__lead { max-width: 440px; margin: 20px 0 28px; color: var(--muted); font-size: 18px; }
+.hero__ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero__img { grid-column: span 5; grid-row: span 2; }
+.t-open { grid-column: span 3; }
+.t-deliv { grid-column: span 3; }
+.t-sub { grid-column: span 3; text-decoration: none; transition: transform 200ms; }
+.t-sub:hover { transform: translateY(-3px); }
+.t-img2 { grid-column: span 3; }
+
+/* sections */
+section.block { padding-top: 120px; }
+.head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
+.head h2 { margin: 0; font: 400 clamp(44px, 5.6vw, 80px)/.95 var(--serif); letter-spacing: -0.02em; }
+.head p { margin: 0; max-width: 380px; color: var(--muted); }
+
+/* menu: chips + rows */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.chip { padding: 10px 18px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--muted); font: 600 14.5px/1 var(--sans); cursor: pointer; transition: all 160ms; min-height: 44px; }
+.chip:hover { color: var(--ink); border-color: rgb(243 236 226 / .3); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.menu { display: grid; grid-template-columns: 5fr 7fr; gap: var(--gap); align-items: stretch; }
+.menu__photo { min-height: 480px; }
+.menu__list { padding: 12px 28px; }
+.group[hidden] { display: none; }
+.row { display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: 18px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.row:last-child { border-bottom: 0; }
+.row img { width: 64px; height: 64px; border-radius: 14px; object-fit: cover; }
+.row h3 { margin: 0; font: 600 17px/1.3 var(--sans); }
+.row p { margin: 2px 0 0; color: var(--muted); font-size: 14.5px; }
+.row .price { font: 400 26px/1 var(--serif); white-space: nowrap; }
+
+/* subscription */
+.sub { display: grid; grid-template-columns: 7fr 5fr; gap: var(--gap); }
+.sub__main { padding: 48px; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; min-height: 420px; }
+.sub__price { margin: 0; font: 400 clamp(72px, 10vw, 156px)/.85 var(--serif); letter-spacing: -0.03em; }
+.sub__price small { font-size: .3em; letter-spacing: 0; }
+.sub__copy { max-width: 480px; font-size: 19px; font-weight: 500; margin: 0; }
+.sub__main .btn { background: var(--accent-ink); color: var(--accent); align-self: flex-start; }
+.sub__side { display: grid; grid-template-rows: 1fr auto; gap: var(--gap); }
+.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 16px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 36px 1fr; gap: 12px; align-items: start; color: var(--muted); }
+.steps li::before { content: counter(s); width: 36px; height: 36px; border-radius: 999px; display: grid; place-items: center; background: var(--tile-2); color: var(--ink); font-weight: 700; }
+.steps strong { color: var(--ink); font-weight: 600; display: block; }
+
+/* gallery */
+.gallery { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 260px 260px; gap: var(--gap); }
+.gallery .tile:first-child { grid-row: span 2; }
+
+/* visit */
+.visit { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gap); }
+.v-addr { grid-column: span 7; padding: 40px; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; min-height: 340px; }
+.v-addr .street { margin: 0; font: 400 clamp(48px, 6vw, 92px)/.95 var(--serif); letter-spacing: -0.02em; }
+.v-hours { grid-column: span 5; }
+.hours { margin: 16px 0 0; display: grid; grid-template-columns: 1fr auto; }
+.hours dt, .hours dd { margin: 0; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.hours dd { text-align: right; font-variant-numeric: tabular-nums; }
+.hours .today { color: var(--accent); font-weight: 600; }
+
+footer { padding: 120px 0 40px; }
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px; padding-top: 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+.foot__word { width: 100%; margin: 0 0 8px; font: 400 clamp(96px, 22vw, 330px)/.8 var(--serif); letter-spacing: -0.04em; color: var(--tile-2); user-select: none; }
+
+/* phone bar */
+.bar { display: none; }
+
+@media (max-width: 1023px) {
+  .nav__links { display: none; }
+  .hero__main { grid-column: 1 / -1; grid-row: auto; min-height: 0; }
+  .hero__img { grid-column: 1 / -1; grid-row: auto; aspect-ratio: 16 / 10; }
+  .t-open, .t-deliv, .t-sub, .t-img2 { grid-column: span 6; }
+  .menu { grid-template-columns: 1fr; }
+  .menu__photo { display: none; }
+  .sub { grid-template-columns: 1fr; }
+  .v-addr, .v-hours { grid-column: 1 / -1; }
+}
+@media (max-width: 639px) {
+  :root { --gut: 14px; --r: 18px; --gap: 10px; }
+  .nav { top: 10px; margin-top: 10px; }
+  .nav .btn { display: none; }
+  .nav__bar { padding: 12px 18px; }
+  .hero__main { padding: 26px; }
+  .tile--pad { padding: 20px; }
+  .big { font-size: 30px; }
+  .t-img2 { display: none; }
+  .t-sub { grid-column: 1 / -1; }
+  section.block { padding-top: 80px; }
+  .menu__list { padding: 4px 18px; }
+  .row { grid-template-columns: 56px 1fr auto; gap: 12px; }
+  .row img { width: 56px; height: 56px; }
+  .row .price { font-size: 22px; }
+  .sub__main { padding: 28px; min-height: 0; }
+  .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 160px; }
+  .gallery .tile:first-child { grid-column: 1 / -1; grid-row: auto; }
+  .gallery .tile:nth-child(n+4) { display: none; }
+  .v-addr { padding: 26px; min-height: 0; }
+  footer { padding-top: 80px; }
+  .bar { display: block; position: fixed; inset: auto 0 0 0; z-index: 50; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); background: linear-gradient(to top, var(--bg) 70%, transparent); }
+  .bar .btn { width: 100%; }
+  body { padding-bottom: 76px; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#carta">Saltar a la carta</a>
+
+<div class="wrap nav">
+  <div class="nav__bar">
+    <a class="logo" href="#top" aria-label="Bruma Café, inicio"><svg viewBox="0 0 24 24" fill="none" stroke="#ff7a3d" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M3 9c3-2 6 2 9 0s6-2 9 0M3 15c3-2 6 2 9 0s6-2 9 0"/></svg>bruma</a>
+    <nav class="nav__links" aria-label="Principal">
+      <a href="#carta">Carta</a><a href="#suscripcion">Suscripción</a><a href="#local">El local</a><a href="#visitanos">Visitanos</a>
+    </nav>
+    <a class="btn" href="https://wa.me/?text=Hola%20Bruma%2C%20quiero%20hacer%20un%20pedido%3A%20" target="_blank" rel="noopener">Pedí por WhatsApp</a>
+  </div>
+</div>
+
+<main id="top">
+  <section class="hero wrap" aria-labelledby="hero-h">
+    <div class="bento">
+      <div class="tile hero__main">
+        <span class="label">Café al paso · Playa Grande, Mar del Plata</span>
+        <div>
+          <h1 id="hero-h" class="serif">Café de<br>especialidad,<br><em>al paso.</em></h1>
+          <p class="hero__lead">Café, dulce, salado y almuerzos para llevar. Pedís por WhatsApp y te lo llevamos gratis.</p>
+          <div class="hero__ctas">
+            <a class="btn" href="https://wa.me/?text=Hola%20Bruma%2C%20quiero%20hacer%20un%20pedido%3A%20" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.8-1.1-4.6-4-4.8-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.4z"/></svg>Pedí por WhatsApp</a>
+            <a class="btn btn--ghost" href="#carta">Ver la carta</a>
+          </div>
+        </div>
+      </div>
+      <div class="tile tile--photo hero__img"><img src="https://images.unsplash.com/photo-1517701848373-805868efd0ac?auto=format&fit=crop&w=1100&q=75" srcset="https://images.unsplash.com/photo-1517701848373-805868efd0ac?auto=format&fit=crop&w=700&q=75 700w, https://images.unsplash.com/photo-1517701848373-805868efd0ac?auto=format&fit=crop&w=1100&q=75 1100w" sizes="(max-width: 1023px) 100vw, 40vw" alt="Barista preparando un cappuccino" fetchpriority="high"></div>
+      <div class="tile tile--pad t-open">
+        <span class="label"><span class="dot" id="open-dot"></span><span id="open-text">Lunes a sábado</span></span>
+        <p class="big">8 a 20 h</p>
+      </div>
+      <div class="tile tile--pad tile--accent t-deliv">
+        <span class="label">Delivery</span>
+        <p class="big">Gratis en<br>el barrio</p>
+      </div>
+      <a class="tile tile--pad tile--cream t-sub" href="#suscripcion">
+        <span class="label">Suscripción</span>
+        <p class="big">$65.000<br>por mes</p>
+      </a>
+      <div class="tile tile--photo t-img2"><img src="https://images.unsplash.com/photo-1565252556328-92ee4a9a0983?auto=format&fit=crop&w=600&q=75" alt="Cappuccino con una medialuna" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="block wrap" id="carta" aria-labelledby="carta-h">
+    <div class="head">
+      <h2 id="carta-h" class="serif">La carta</h2>
+      <p>Todo para llevar. Tocá una categoría para ver los precios.</p>
+    </div>
+    <div class="chips" role="group" aria-label="Categorías">
+      <button class="chip" type="button" data-cat="cafe" aria-pressed="true">Café</button>
+      <button class="chip" type="button" data-cat="frio" aria-pressed="false">Frío</button>
+      <button class="chip" type="button" data-cat="dulce" aria-pressed="false">Dulce</button>
+      <button class="chip" type="button" data-cat="salado" aria-pressed="false">Salado y almuerzos</button>
+    </div>
+    <div class="menu">
+      <div class="tile tile--photo menu__photo"><img src="https://images.unsplash.com/photo-1536319229365-83318cdc7b83?auto=format&fit=crop&w=900&q=75" alt="Café saliendo de la máquina" loading="lazy"></div>
+      <div class="tile menu__list">
+        <div class="group" data-group="cafe">
+          <div class="row"><img src="https://images.unsplash.com/photo-1530174883092-c2a7aa3f1cfe?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Espresso</h3><p>Simple o doble.</p></div><span class="price">$2.900</span></div>
+          <div class="row"><img src="https://images.unsplash.com/photo-1760306081298-93e10f2be897?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Cortado</h3><p>Espresso con un toque de leche.</p></div><span class="price">$3.300</span></div>
+          <div class="row"><img src="https://images.unsplash.com/photo-1512568400610-62da28bc8a13?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Flat white</h3><p>Doble ristretto y leche sedosa.</p></div><span class="price">$4.700</span></div>
+          <div class="row"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Cappuccino</h3><p>Con espuma y cacao.</p></div><span class="price">$4.300</span></div>
+          <div class="row"><img src="https://images.unsplash.com/photo-1766426910014-63a302fa137e?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Matcha latte</h3><p>Matcha ceremonial y leche.</p></div><span class="price">$6.100</span></div>
+        </div>
+        <div class="group" data-group="frio" hidden>
+          <div class="row"><img src="https://images.unsplash.com/photo-1761673930163-8d3d6d73cd7a?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Iced latte</h3><p>Doble espresso, leche y hielo.</p></div><span class="price">$5.300</span></div>
+          <div class="row"><img src="https://images.unsplash.com/photo-1764298490445-6add12301888?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Cold brew</h3><p>Infusionado en frío 18 horas.</p></div><span class="price">$5.500</span></div>
+          <div class="row"><img src="https://images.unsplash.com/photo-1749280447307-31a68eb38673?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Iced matcha</h3><p>Matcha, leche fría y hielo.</p></div><span class="price">$6.500</span></div>
+          <div class="row"><img src="https://images.unsplash.com/photo-1689066117649-0ca9762fc92c?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Jugo de naranja</h3><p>Exprimido en el momento.</p></div><span class="price">$4.400</span></div>
+        </div>
+        <div class="group" data-group="dulce" hidden>
+          <div class="row"><img src="https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Medialunas x2</h3><p>De manteca, del día.</p></div><span class="price">$2.500</span></div>
+          <div class="row"><img src="https://images.unsplash.com/photo-1604953781841-004f1848ed3d?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Alfajor de maicena</h3><p>Dulce de leche y coco.</p></div><span class="price">$2.000</span></div>
+          <div class="row"><img src="https://images.unsplash.com/photo-1779282159217-226d9e831c03?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Cheesecake</h3><p>Con frutos rojos.</p></div><span class="price">$6.000</span></div>
+          <div class="row"><img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Cookie</h3><p>Chips de chocolate semiamargo.</p></div><span class="price">$2.700</span></div>
+        </div>
+        <div class="group" data-group="salado" hidden>
+          <div class="row"><img src="https://images.unsplash.com/photo-1528736235302-52922df5c122?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Tostado</h3><p>Jamón y queso, pan de molde.</p></div><span class="price">$6.300</span></div>
+          <div class="row"><img src="https://images.unsplash.com/photo-1687276287139-88f7333c8ca4?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Avocado toast</h3><p>Masa madre, palta y huevo.</p></div><span class="price">$8.000</span></div>
+          <div class="row"><img src="https://images.unsplash.com/photo-1771074168450-11e3f8b7aa53?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Bowl del día</h3><p>De 12 a 15. Cambia todos los días.</p></div><span class="price">$11.800</span></div>
+          <div class="row"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=160&h=160&q=70" alt="" loading="lazy"><div><h3>Ensalada</h3><p>Verdes, palta, huevo y semillas.</p></div><span class="price">$9.900</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block wrap" id="suscripcion" aria-labelledby="sub-h">
+    <div class="head">
+      <h2 id="sub-h" class="serif">Suscripción</h2>
+      <p>Para los que pasan todos los días antes de entrar a trabajar.</p>
+    </div>
+    <div class="sub">
+      <div class="tile tile--accent sub__main">
+        <span class="label">Un café por día, de lunes a sábado</span>
+        <p class="sub__price serif">$65.000<small> /mes</small></p>
+        <p class="sub__copy">Pagás el mes y pasás a buscar tu café cada día, sin hacer fila y sin pagar en el momento.</p>
+        <a class="btn" href="https://wa.me/?text=Hola%20Bruma%2C%20quiero%20sumarme%20a%20la%20suscripci%C3%B3n" target="_blank" rel="noopener">Quiero suscribirme</a>
+      </div>
+      <div class="sub__side">
+        <div class="tile tile--photo" style="min-height:240px"><img src="https://images.unsplash.com/photo-1598908314732-07113901949e?auto=format&fit=crop&w=900&q=75" alt="Vaso de café para llevar sobre la mesa" loading="lazy"></div>
+        <div class="tile tile--pad">
+          <ol class="steps">
+            <li><span><strong>Escribinos por WhatsApp</strong>Te anotamos con tu nombre.</span></li>
+            <li><span><strong>Pagás el mes</strong>Por transferencia o en el local.</span></li>
+            <li><span><strong>Pasás y lo retirás</strong>Un café por día, el que quieras.</span></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block wrap" id="local" aria-labelledby="local-h">
+    <div class="head">
+      <h2 id="local-h" class="serif">El local</h2>
+      <p>Una barra chica, mucha luz y plantas. Pasás, pedís y seguís.</p>
+    </div>
+    <div class="gallery">
+      <div class="tile tile--photo"><img src="https://images.unsplash.com/photo-1769473357493-319cbde6b248?auto=format&fit=crop&w=1000&q=75" alt="Mesas de madera junto a la ventana, con plantas" loading="lazy"></div>
+      <div class="tile tile--photo"><img src="https://images.unsplash.com/photo-1599549192669-6baac5d32432?auto=format&fit=crop&w=600&q=75" alt="Barista sirviendo leche" loading="lazy"></div>
+      <div class="tile tile--photo"><img src="https://images.unsplash.com/photo-1469631423273-6995642a6a40?auto=format&fit=crop&w=600&q=75" alt="La barra con las máquinas de café" loading="lazy"></div>
+      <div class="tile tile--photo"><img src="https://images.unsplash.com/photo-1508766917616-d22f3f1eea14?auto=format&fit=crop&w=600&q=75" alt="Un cliente comprando café en el mostrador" loading="lazy"></div>
+      <div class="tile tile--photo"><img src="https://images.unsplash.com/photo-1774521044355-508615f287ca?auto=format&fit=crop&w=600&q=75" alt="Luz de la mañana sobre la barra" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="block wrap" id="visitanos" aria-labelledby="visit-h">
+    <div class="head">
+      <h2 id="visit-h" class="serif">Visitanos</h2>
+      <p>A dos cuadras de la playa.</p>
+    </div>
+    <div class="visit">
+      <div class="tile v-addr">
+        <span class="label">Dirección</span>
+        <p class="street serif">Calle Olavarría,<br><em>Playa Grande</em></p>
+        <div class="hero__ctas">
+          <a class="btn btn--ghost" href="https://www.openstreetmap.org/search?query=Olavarr%C3%ADa%20Playa%20Grande%20Mar%20del%20Plata" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
+      </div>
+      <div class="tile tile--pad v-hours">
+        <span class="label">Horario</span>
+        <dl class="hours" id="hours">
+          <dt data-d="1">Lunes</dt><dd data-d="1">8 a 20</dd>
+          <dt data-d="2">Martes</dt><dd data-d="2">8 a 20</dd>
+          <dt data-d="3">Miércoles</dt><dd data-d="3">8 a 20</dd>
+          <dt data-d="4">Jueves</dt><dd data-d="4">8 a 20</dd>
+          <dt data-d="5">Viernes</dt><dd data-d="5">8 a 20</dd>
+          <dt data-d="6">Sábado</dt><dd data-d="6">8 a 20</dd>
+          <dt data-d="0">Domingo</dt><dd data-d="0">Cerrado</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p class="foot__word serif" aria-hidden="true">bruma</p>
+  <div class="foot">
+    <span>&copy; 2026 Bruma Café · Calle Olavarría, Playa Grande, Mar del Plata</span>
+    <span>Fotos de <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></span>
+  </div>
+</footer>
+
+<div class="bar"><a class="btn" href="https://wa.me/?text=Hola%20Bruma%2C%20quiero%20hacer%20un%20pedido%3A%20" target="_blank" rel="noopener">Pedí por WhatsApp</a></div>
+
+<script>
+/* menu chips */
+const chips = document.querySelectorAll(".chip");
+chips.forEach(c => c.addEventListener("click", () => {
+  chips.forEach(x => x.setAttribute("aria-pressed", String(x === c)));
+  document.querySelectorAll(".group").forEach(g => g.hidden = g.dataset.group !== c.dataset.cat);
+}));
+
+/* today and open now, in Mar del Plata's time */
+const now = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Argentina/Buenos_Aires" }));
+const day = now.getDay(), h = now.getHours();
+document.querySelectorAll(`#hours [data-d="${day}"]`).forEach(el => el.classList.add("today"));
+const open = day !== 0 && h >= 8 && h < 20;
+document.getElementById("open-text").textContent = open ? "Abierto ahora" : "Cerrado ahora";
+document.getElementById("open-dot").classList.toggle("is-closed", !open);
+</script>
+</body>
+</html>
